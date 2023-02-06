@@ -1,11 +1,10 @@
 import java.sql.*;
-import java.util.Scanner;
 
 public class WorkWithDatabase {
     public static void main(String[] args) throws SQLException {
         final String user = "postgres";
         final String password = "123";
-        final String url = "jdbc:postgresql://localhost:5432/";
+        final String url = "jdbc:postgresql://localhost:5433/";
         final Connection connection = DriverManager.getConnection(url, user, password);
 
         /**ВЫВОД ТАБЛИЦЫ ОЦЕНОК=======================================================================================**/
@@ -48,10 +47,29 @@ public class WorkWithDatabase {
                 System.out.println("University --->>> " + university);
                 System.out.println();
             }
+        }
+        /**==========================================================================================================**/
+
+
+        System.out.println();
+        /**AVG=======================================================================================**/
+        try (
+                PreparedStatement preparedStatement1 = connection.prepareStatement("SELECT AVG (grade),grade_student from grades group by grade_student;")) {
+
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            while (resultSet.next()) {
+
+                String student = resultSet.getString("grade_student");
+                int grade = resultSet.getInt("AVG");
+
+                System.out.println("Student --->>> " + student);
+                System.out.println("AVG grade --->>> " + grade);
+                System.out.println();
+            }
         } finally {
             connection.close();
         }
         /**==========================================================================================================**/
-    }
 
+    }
 }

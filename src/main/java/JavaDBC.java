@@ -1,3 +1,5 @@
+import java.sql.*;
+
 public class JavaDBC {
     private final String url = "jdbc:postgresql://localhost:5432/";
     private final String user = "postgres";
@@ -18,7 +20,7 @@ public class JavaDBC {
         String SQL = "SELECT count(*) FROM trainers";
         int count = 0;
         try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SQL)) {
-            rs.next();
+            ((ResultSet) rs).next();
             count = rs.getInt(1);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -1,4 +1,4 @@
-//create table sports
+//create table sportss
 //        (
 //        sport_id      integer PRIMARY KEY,
 //        sort_of_sport VARCHAR(20) UNIQUE NOT NULL,
